@@ -3,17 +3,17 @@ import subprocess
 import os
 
 # wordz to be used
-	brush = "drukQs "
-	ASPECT_RATIO = 2.09  # Terminal character height:width ratio
+brush = ".egykép "
+ASPECT_RATIO = 2.09  # Terminal character height:width ratio
 
-	def image_to_ascii(path):
 
-# Get the base filename from the source image path
+def image_to_ascii(path):
+    # Get the base filename from the source image path
     base_name = os.path.basename(path)
 
-# Prompt gergo for width
+    # Prompt gergo for width
     try:
-        user_input = input(f"Enter target width (default 192): ").strip()
+        user_input = input("Enter target width (default 192): ").strip()
         target_width = int(user_input) if user_input else 192
     except ValueError:
         print("Invalid input. Using default width 192.")
@@ -22,10 +22,10 @@ import os
     target_height = int(target_width / ASPECT_RATIO)
     print(f" Using width: {target_width}, height: {target_height} (aspect ratio {ASPECT_RATIO})")
 
-# Build output file name
+    # Build output file name
     output_filename = f"{target_width}_ascii_output_{base_name}.txt"
 
-# Load and resize image
+    # Load and resize image
     img = Image.open(path).convert("RGBA")
     img = img.resize((target_width, target_height))
 
@@ -45,15 +45,16 @@ import os
                 row += " "
         result.append(row)
 
-# Save to file
+    # Save to file
     with open(output_filename, "w") as f:
         f.write("\n".join(result))
 
     print(f"\n ASCII saved to {output_filename}\n")
 
-# Print the output using `cat`
+    # Print the output using `cat`
     subprocess.run(["cat", output_filename])
 
+
 if __name__ == "__main__":
-    image_to_ascii("fenrir.png")
+    image_to_ascii("egykep.jpg")
 
