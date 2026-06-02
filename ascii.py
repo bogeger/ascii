@@ -3,21 +3,12 @@ import subprocess
 import os
 
 # wordz to be used
-brush = ".egykép "
+brush = "Filthy  "
 ASPECT_RATIO = 2.09  # Terminal character height:width ratio
 
-
-def image_to_ascii(path):
+def image_to_ascii(path, target_width):
     # Get the base filename from the source image path
     base_name = os.path.basename(path)
-
-    # Prompt gergo for width
-    try:
-        user_input = input("Enter target width (default 192): ").strip()
-        target_width = int(user_input) if user_input else 192
-    except ValueError:
-        print("Invalid input. Using default width 192.")
-        target_width = 192
 
     target_height = int(target_width / ASPECT_RATIO)
     print(f" Using width: {target_width}, height: {target_height} (aspect ratio {ASPECT_RATIO})")
@@ -56,5 +47,19 @@ def image_to_ascii(path):
 
 
 if __name__ == "__main__":
-    image_to_ascii("egykep.jpg")
+    while True:
+        user_input = input("Enter target width (default 192): ").strip()
+        if not user_input:
+            target_width = 192
+            break
+        try:
+            target_width = int(user_input)
+            if target_width <= 0:
+                print("Please enter a positive number.")
+                continue
+            break
+        except ValueError:
+            print("Invalid input. Please enter a whole number.")
+
+    image_to_ascii("filthy.png", target_width)
 
