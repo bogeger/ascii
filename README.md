@@ -3,5 +3,5 @@
 
 ## to use
 
-    * install dependencies `python3 -m pip install pillow`
-    * run using python3 ascii.py 
+* install dependencies `python3 -m pip install pillow`
+* run using `python3 ascii.py`
