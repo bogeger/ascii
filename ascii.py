@@ -47,6 +47,30 @@ def image_to_ascii(path, target_width):
 
 
 if __name__ == "__main__":
+    # Scan for PNG and JPG files
+    supported_extensions = (".png", ".jpg", ".jpeg")
+    files = sorted([f for f in os.listdir(".") if f.lower().endswith(supported_extensions)])
+
+    if not files:
+        print("No .png or .jpg files found in the current directory.")
+        exit(1)
+
+    print("\nAvailable images:")
+    for i, file in enumerate(files, 1):
+        print(f"  {i}) {file}")
+
+    while True:
+        try:
+            choice_input = input(f"\nSelect an image [1-{len(files)}]: ").strip()
+            choice_idx = int(choice_input) - 1
+            if 0 <= choice_idx < len(files):
+                selected_file = files[choice_idx]
+                break
+            else:
+                print(f"Please enter a number between 1 and {len(files)}.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
     while True:
         user_input = input("Enter target width (default 192): ").strip()
         if not user_input:
@@ -61,5 +85,5 @@ if __name__ == "__main__":
         except ValueError:
             print("Invalid input. Please enter a whole number.")
 
-    image_to_ascii("filthy.png", target_width)
+    image_to_ascii(selected_file, target_width)
 
